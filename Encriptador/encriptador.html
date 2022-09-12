@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">  
+        <meta name="viewport" content="width=device-width">
+        <title>Encriptador</title>
+        
+        <link rel="stylesheet" href="reset.css">
+        <link rel="stylesheet" href="style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+        
+    </head>
+
+    <body>
+        <header>
+            <div>
+                <h1 class="logo"> <img src="logo.png"> </h1>
+            </div> 
+        </header>
+
+        <div class="rectangulo">
+            <textarea name="resultado" id="textoDesencriptado" cols="45" rows="10"></textarea>
+            <img id="muneco" src="Muñeco.png">
+            <input id="copiar" type="button" value="Copiar" style="display: none;">
+            <p id="mensajeAdvertencia">Ningun mensaje fue encontrado</p>
+            <p id="complementoMensaje"> Ingresa el mensaje que deseas encriptar o desencriptar</p>
+        </div>
+
+        <div >
+            <input autofocus id="entradaTexto" type="text" required placeholder="Ingresa texto aquí" minlength="2" size="10000">
+            <p class="condicion">⚠ Solo letras minúsculas y sin acentos.</p>
+            <button id="botonEncriptar">Encriptar</button>
+            <button id="botonDesencriptar">Desencriptar</button>
+        </div>
+
+        <script>
+            
+            var btnEncriptar= document.querySelector("#botonEncriptar");
+            btnEncriptar.onclick=funcionEncriptar;
+
+            var btnDesencriptar= document.querySelector("#botonDesencriptar");
+            btnDesencriptar.onclick=funcionDesencriptar;
+
+            var btnCopiar= document.querySelector("#copiar");
+            btnCopiar.onclick=funcionCopiar;
+            btnCopiar.addEventListener("click", () => {
+	        entradaTexto.focus();
+            });
+            function funcionEncriptar() {
+
+                document.getElementById("muneco").style.display = "none";
+                document.getElementById("copiar").style.display = "inline";
+                document.getElementById("mensajeAdvertencia").style.display="none";
+                document.getElementById("complementoMensaje").style.display="none";
+                
+                var frase=document.getElementById("entradaTexto").value.toLowerCase();
+                var textoEncriptado=frase.replace(/e/img, "enter");
+                var textoEncriptado=textoEncriptado.replace(/o/img, "ober");
+                var textoEncriptado=textoEncriptado.replace(/i/img, "imes");
+                var textoEncriptado=textoEncriptado.replace(/a/img, "ai");
+                var textoEncriptado=textoEncriptado.replace(/u/img, "ufat");
+
+                document.getElementById("textoDesencriptado").innerHTML=textoEncriptado;
+            }
+
+            function funcionDesencriptar() {
+                
+                document.getElementById("muneco").style.display = "none";
+                document.getElementById("copiar").style.display = "inline";
+                document.getElementById("mensajeAdvertencia").style.display="none";
+                document.getElementById("complementoMensaje").style.display="none";
+                
+                var frase=document.getElementById("entradaTexto").value.toLowerCase();
+                var textoEncriptado=frase.replace(/enter/img, "e");
+                var textoEncriptado=textoEncriptado.replace(/ober/img, "o");
+                var textoEncriptado=textoEncriptado.replace(/imes/img, "i");
+                var textoEncriptado=textoEncriptado.replace(/ai/img, "a");
+                var textoEncriptado=textoEncriptado.replace(/ufat/img, "u");
+
+                document.getElementById("textoDesencriptado").innerHTML=textoEncriptado;
+            }
+
+            function funcionCopiar(){
+
+                var contenido=document.querySelector("#textoDesencriptado");
+                contenido.select();
+                document.execCommand("copy");
+                document.getElementById("entradaTexto").value = ""
+                
+            }
+        </script>
+    </body>
+</html>
